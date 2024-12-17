@@ -1,0 +1,12 @@
+langchain_community
+transformers
+sentence-transformers
+langchain_groq
+faiss-cpu 
+langchain-core
+langchain-community  
+langchain-openai
+flask
+blobfile
+protobuf
+semantic-router

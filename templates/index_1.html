@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Environmental Authority of Oman - Chatbot</title>
+
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700&display=swap"
+  />
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      font-family: "Nunito", sans-serif;
+      background: url('https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8b21hbiUyMGVuvironmentfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=1500&q=60') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+    }
+
+    .navbar {
+      background-color: #006400;
+    }
+
+    .navbar-brand,
+    .navbar-nav .nav-link {
+      color: #fff !important;
+    }
+
+    .navbar-brand:hover,
+    .navbar-nav .nav-link:hover {
+      color: #e0ffe0 !important;
+    }
+
+    .chat-container {
+      max-width: 600px;
+      margin: 80px auto;
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      backdrop-filter: blur(5px);
+    }
+
+    .chat-header {
+      background-color: #006400;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .chat-header:before {
+      content: "🌱";
+      margin-right: 10px;
+      font-size: 1.5rem;
+    }
+
+    .chat-body {
+      height: 400px;
+      overflow-y: auto;
+      padding: 15px;
+      background-color: #f2f2f2;
+    }
+
+    .chat-footer {
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-top: 1px solid #ddd;
+    }
+
+    .message {
+      margin-bottom: 15px;
+    }
+
+    .user-message {
+      text-align: right;
+    }
+
+    .user-message .message-text {
+      background-color: #006400;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      display: inline-block;
+      max-width: 80%;
+    }
+
+    .bot-message .message-text {
+      background-color: #e5e5ea;
+      color: black;
+      padding: 10px;
+      border-radius: 10px;
+      display: inline-block;
+      max-width: 80%;
+    }
+
+    .intro-text {
+      text-align: center;
+      color: #ffffff;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 30px;
+      margin-top: 20px;
+      border-radius: 10px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .intro-text h1 {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .intro-text p {
+      font-size: 1rem;
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 767px) {
+      .chat-container {
+        margin: 20px;
+      }
+      .intro-text h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Environmental Authority of Oman</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarContent"
+        aria-controls="navbarContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+        style="border-color: #fff;"
+      >
+        <span class="navbar-toggler-icon" style="color:#fff;"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="#">About the Authority</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Initiatives</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Get Involved</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Intro Section -->
+  <div class="intro-text">
+    <h1>Preserving Nature, Empowering Communities</h1>
+    <p>Chat with our virtual assistant to learn about Environmental Authority’s services, initiatives, campaigns, and how you can help protect Oman’s natural heritage.</p>
+  </div>
+
+  <!-- Chat Container -->
+  <div class="chat-container">
+    <div class="chat-header">
+      Environmental Authority Assistant
+    </div>
+
+    <div id="chat-body" class="chat-body">
+      <!-- Chat messages appear here -->
+    </div>
+
+    <div class="chat-footer">
+      <div class="input-group">
+        <input
+          id="userInput"
+          type="text"
+          class="form-control"
+          placeholder="Type your message..."
+        />
+        <button id="sendBtn" class="btn btn-success">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS and dependencies -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+  ></script>
+
+  <!-- Custom JS for Chatbot Interaction -->
+  <script>
+    // Generate a unique session ID for each tab
+    function generateSessionId() {
+      return 'session_' + Math.random().toString(36).substring(2, 15);
+    }
+
+    // Check if there's already a session ID stored in sessionStorage, if not create one
+    if (!sessionStorage.getItem('session_id')) {
+      sessionStorage.setItem('session_id', generateSessionId());
+    }
+
+    // Retrieve the session ID for this tab
+    const sessionId = sessionStorage.getItem('session_id');
+    console.log("Session ID for this tab:", sessionId);
+
+    document.getElementById("sendBtn").addEventListener("click", function () {
+      sendMessage();
+    });
+
+    // Allow pressing Enter to send a message
+    document.getElementById("userInput").addEventListener("keypress", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+      }
+    });
+
+    function sendMessage() {
+      const userInput = document.getElementById("userInput").value.trim();
+
+      if (userInput === "") {
+        return; // Don't send empty messages
+      }
+
+      // Add user's message to the chat body
+      const userMessage = `
+        <div class="message user-message">
+          <div class="message-text">${userInput}</div>
+        </div>
+      `;
+      document.getElementById("chat-body").innerHTML += userMessage;
+      document.getElementById("userInput").value = ""; // Clear input
+
+      // Scroll to the bottom of chat
+      scrollToBottom();
+
+      // Send the user input along with the session ID to the Flask backend
+      fetch("/chatbot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+          message: userInput,
+          session_id: sessionId // Send session ID with the message
+        }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        // Add bot's message to the chat body
+        const botMessage = `
+          <div class="message bot-message">
+            <div class="message-text">${data.response}</div>
+          </div>
+        `;
+        document.getElementById("chat-body").innerHTML += botMessage;
+
+        // Scroll to the bottom of chat
+        scrollToBottom();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    }
+
+    // Scroll chat to the bottom
+    function scrollToBottom() {
+      const chatBody = document.getElementById("chat-body");
+      chatBody.scrollTop = chatBody.scrollHeight;
+    }
+  </script>
+</body>
+</html>
