@@ -10,3 +10,4 @@ flask
 blobfile
 protobuf
 semantic-router
+llama-index

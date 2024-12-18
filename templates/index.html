@@ -20,7 +20,13 @@
   <!-- Custom CSS -->
   <style>
     /* Global Styles */
+    /* Body Background Image */
     body {
+      background-image: url("{{ url_for('static', filename='images/image.jpg') }}");
+      background-size: cover; /* Make it cover the whole area */
+      background-position: center; /* Center the image */
+      background-attachment: fixed; /* Fixed background on scroll */
+      background-repeat: no-repeat; /* Prevent repetition */
       font-family: "Nunito", sans-serif;
       background-color: #E8F6F5; /* Light turquoise background */
       margin: 0;
@@ -30,6 +36,12 @@
     /* Navbar */
     .navbar {
       background-color: #2DB2AA; /* Teal color */
+    }
+    /* Navbar Logo */
+    .navbar img {
+      height: 40px; /* Adjust height */
+      width: auto; /* Maintain proportions */
+      margin-right: 10px; /* Add space to the right of the logo */
     }
     .navbar-brand, .navbar-nav .nav-link {
       color: white !important;
@@ -50,12 +62,23 @@
 
     /* Chat Header */
     .chat-header {
-      background-color: #2DB2AA;
+      background: url('/images/logo.png') no-repeat center center;
+      background-size: cover;
       color: white;
       text-align: center;
-      padding: 15px;
+      padding: 40px 15px; /* Increased padding for visual clarity */
       font-size: 1.25rem;
       font-weight: bold;
+      position: relative;
+    }
+
+    /* Logo Styling */
+    .chat-header img {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      height: 50px; /* Adjust logo height */
+      width: auto;
     }
 
     /* Chat Messages */
@@ -128,6 +151,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg">
     <div class="container">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Sultanate of Oman Logo" />
       <a class="navbar-brand" href="#">Environmental Authority of Oman</a>
       <button
         class="navbar-toggler"
@@ -159,16 +183,11 @@
   <!-- Chatbot Container -->
   <div class="chat-container">
     <div class="chat-header">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Sultanate of Oman Logo" />
       Environmental Authority Assistant
     </div>
 
     <div id="chat-body" class="chat-body">
-      <!-- Initial Message -->
-      <div class="message bot-message">
-        <div class="message-text">
-          Hello! How can I assist you today?
-        </div>
-      </div>
     </div>
 
     <div class="chat-footer">

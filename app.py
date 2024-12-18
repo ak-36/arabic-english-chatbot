@@ -49,14 +49,14 @@ def chatbot_response():
     try:
         # Process the user query and generate a response
         final_response = process_user_query(user_query, chat_chain, chat_history)
-        print(f"************Final Response - {final_response.content}**************")
+        print(f"************Final Response - {final_response}**************")
         # Update the session with the latest chat history
         chat_sessions[session_id] = {
             "chat_chain": chat_chain,
             "chat_history": chat_history
         }
 
-        return jsonify({"response": final_response.content})
+        return jsonify({"response": final_response})
     except Exception as e:
         # Log any error and send a response
         logging.error(f"Error processing user query: {e}")
