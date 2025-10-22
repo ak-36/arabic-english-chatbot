@@ -1,17 +1,8 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_groq import ChatGroq
 import re
-
-# Initialize the LLM
-groq_api_key = "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"
-
-chat = ChatGroq(
-    groq_api_key=groq_api_key,
-    model_name="Llama3-8b-8192"
-)
+from main import llm as chat
 
 def query_classification_chain(system_prompt):
     """Set up a classification chain with system prompt."""
