@@ -31,8 +31,8 @@ Response to User
 
 ## 📋 Prerequisites
 
-- Python 3.8+
-- NVIDIA GPU with CUDA support (tested on RTX A5000)
+- Python 3.11+
+- NVIDIA GPU with CUDA support
 - CUDA 12.1+ installed
 - 8GB+ GPU memory recommended
 
@@ -66,9 +66,9 @@ pip install pandas
 
 ### 4. Set Up API Keys
 
-Create a `.env` file in the root directory:
-```env
-GROQ_API_KEY=your_groq_api_key_here
+In the main.py, add your Groq API key:
+```
+groq_api_key = "<Add Groq API Key here>"
 ```
 
 Get your Groq API key from: https://console.groq.com/
