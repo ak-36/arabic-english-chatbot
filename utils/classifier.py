@@ -1,10 +1,7 @@
-from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_groq import ChatGroq
 import re
-from main import llm as chat
 
-def query_classification_chain(system_prompt):
+def query_classification_chain(system_prompt, chat):
     """Set up a classification chain with system prompt."""
     prompt = ChatPromptTemplate.from_messages(
         [
