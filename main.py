@@ -118,7 +118,7 @@ def final_response_chain(system_prompt):
     return chain_with_message_history, demo_ephemeral_chat_history_for_chain
 
 def chatbot_workflow(user_query: str, chat_chain) -> str:
-    classification = classify_query(user_query)
+    classification = classify_query(user_query, llm)
     user_query = classification['Query']
     query_class = classification['Class']
 
