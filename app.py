@@ -2,10 +2,15 @@ from flask import Flask, request, jsonify, render_template
 from main import final_response_chain, process_user_query, load_system_prompt
 import logging
 from utils.classifier import classify_query
+import os
 
 app = Flask(__name__)
 
+# Get port from environment variable (Cloud Run compatibility)
+PORT = int(os.environ.get('PORT', 5002))
+
 SYSTEM_PROMPT_PATH_FOR_RETRIEVAL = "system_prompts/response_generation_prompt.txt"
+
 # In-memory storage for chat sessions
 chat_sessions = {}
 
@@ -16,12 +21,17 @@ logging.basicConfig(level=logging.DEBUG)
 def home():
     return render_template('index.html')
 
+# Health check endpoint for Cloud Run
+@app.route('/health')
+def health():
+    return jsonify({"status": "healthy"}), 200
+
 # API route to handle chatbot queries
 @app.route('/chatbot', methods=['POST'])
 def chatbot_response():
     # Get the user's message and session ID from the request
     user_query = request.json.get("message")
-    session_id = request.json.get("session_id")  # Get session ID from the frontend
+    session_id = request.json.get("session_id")
 
     if not user_query:
         return jsonify({"error": "No message provided."}), 400
@@ -37,7 +47,7 @@ def chatbot_response():
     else:
         # If session not found, initialize a new session
         logging.info(f"Session ID not found, initializing new session for session_id: {session_id}")
-        system_prompt = load_system_prompt(SYSTEM_PROMPT_PATH_FOR_RETRIEVAL)  # Load system prompt for the session
+        system_prompt = load_system_prompt(SYSTEM_PROMPT_PATH_FOR_RETRIEVAL)
         chat_chain, chat_history = final_response_chain(system_prompt)
         
         # Store the new session data in memory
@@ -50,6 +60,7 @@ def chatbot_response():
         # Process the user query and generate a response
         final_response = process_user_query(user_query, chat_chain, chat_history)
         print(f"************Final Response - {final_response}**************")
+        
         # Update the session with the latest chat history
         chat_sessions[session_id] = {
             "chat_chain": chat_chain,
@@ -63,4 +74,5 @@ def chatbot_response():
         return jsonify({"error": "Internal server error"}), 500
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5002, debug=True)
+    # Use PORT from environment variable for Cloud Run
+    app.run(host="0.0.0.0", port=PORT, debug=False)
