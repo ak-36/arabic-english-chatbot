@@ -119,14 +119,14 @@ title,language,keywords,category,content
 DATA_PATH = "./data"                    # Document folder
 DB_FAISS_PATH = "v_database"           # Vector database path
 EMBEDDING_MODEL = "omarelshehy/arabic-english-sts-matryoshka-v2.0"
-LLM_MODEL = "llama-3.1-8b-instant"     # Groq model
+LLM_MODEL = "llama-3.3-70b-versatile"     # Groq model
 ```
 
 ### Groq API Configuration:
 ```python
 llm = ChatGroq(
     groq_api_key=groq_api_key,
-    model_name="llama-3.1-8b-instant",
+    model_name="llama-3.3-70b-versatile",
     temperature=0.7
 )
 ```
@@ -252,15 +252,6 @@ pip install faiss-cpu --force-reinstall
 3. **Context Window**: Limited to retrieved documents (no full conversation context in RAG)
 4. **Scalability**: In-memory session storage (use Redis for production)
 
-## 🔄 Future Enhancements
-
-- [ ] Add multilingual response generation
-- [ ] Implement streaming responses
-- [ ] Add document upload functionality
-- [ ] Deploy local Llama model for offline use
-- [ ] Add authentication and user management
-- [ ] Implement advanced RAG techniques (HyDE, query expansion)
-- [ ] Add metrics and logging dashboard
 
 ## 📝 API Reference
 
@@ -288,30 +279,3 @@ pip install faiss-cpu --force-reinstall
 }
 ```
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This is a POC project. Add appropriate license as needed.
-
-## 👥 Contact
-
-For questions or support, please contact the development team.
-
-## 🙏 Acknowledgments
-
-- **LangChain**: Framework for LLM applications
-- **Groq**: Fast LLM inference API
-- **HuggingFace**: Embedding models and transformers
-- **FAISS**: Efficient similarity search
-- **Sentence Transformers**: Arabic-English embedding model
-
----
-
-**Built with ❤️ for bilingual conversational AI**
