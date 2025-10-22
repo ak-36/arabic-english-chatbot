@@ -131,6 +131,74 @@ llm = ChatGroq(
 )
 ```
 
+## 🐳 Docker Setup
+### Build Docker Image
+```
+docker build -t arabic-chatbot .
+```
+
+### Run Docker Container Locally
+```
+docker run -p 8080:8080 -e GROQ_API_KEY=your_groq_api_key arabic-chatbot
+```
+
+Access the chatbot at: http://localhost:8080
+Test Docker Container
+```
+curl -X POST http://localhost:8080/chatbot \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello", "session_id": "test"}'
+```
+
+
+## Google Cloud Deployment
+### Prerequisites
+Google Cloud Account: Create at https://console.cloud.google.com
+Install gcloud CLI: https://cloud.google.com/sdk/docs/install
+Enable Billing: Required for Cloud Run
+
+#### Step 1: Initialize gcloud
+```
+gcloud auth login
+```
+```
+gcloud config set project YOUR_PROJECT_ID
+```
+
+```
+gcloud config set run/region us-central1
+```
+
+### Step 2: Enable Required APIs
+```
+gcloud services enable cloudbuild.googleapis.com run.googleapis.com containerregistry.googleapis.com
+```
+
+### Step 3: Build and Push Docker Image
+```
+gcloud builds submit --tag gcr.io/YOUR_PROJECT_ID/arabic-chatbot
+```
+
+### Or use Docker
+```
+docker build -t gcr.io/YOUR_PROJECT_ID/arabic-chatbot .
+```
+```
+docker push gcr.io/YOUR_PROJECT_ID/arabic-chatbot
+```
+
+### Step 4: Deploy to Cloud Run
+```
+gcloud run deploy arabic-chatbot --image gcr.io/YOUR_PROJECT_ID/arabic-chatbot --platform managed --region us-central1 --allow-unauthenticated --memory 4Gi --cpu 2 --timeout 300 
+```
+
+Step 5: Get Service URL
+```
+gcloud run services describe arabic-chatbot \
+  --region us-central1 \
+  --format 'value(status.url)'
+```
+  
 ## 🎯 Usage
 
 ### Run the Web Application
